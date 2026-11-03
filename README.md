@@ -223,6 +223,13 @@ GateForge must only be used against systems you are **explicitly authorized to t
 
 > This tool is intended solely for authorized security assessments, red-team engagements, and security research.
 
+## Author
+
+<p align="center">
+    <img src="https://img.shields.io/badge/Founder-ALPH4_X3-c0392b?style=for-the-badge" alt="ALPH4_X3"/>
+  </a>
+</p>
+
 ---
 
 <p align="center">
