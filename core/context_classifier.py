@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 2: Contextual Classification
+GateForge SSRF v2.0 - Phase 2: Contextual Classification
 ===========================================================
 v5 additions:
   [v5-NEW] CRLF_INJECTION context class — detected when parameter name/value

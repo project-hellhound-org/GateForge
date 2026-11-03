@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 6: Evidence-Based Verification
+GateForge SSRF v2.0 - Phase 6: Evidence-Based Verification
 =============================================================
 v5 fixes and additions:
   [P0-FIX] SPA catch-all guard — build_port_state_map() delegates to
@@ -389,9 +389,9 @@ async def check_crlf_injection(
         return None
 
     crlf_payloads = [
-        "%0d%0aX-Injected: hellhound-ssrf-v5",
-        "\r\nX-Injected: hellhound-ssrf-v5",
-        "%0aX-Injected: hellhound-ssrf-v5",
+        "%0d%0aX-Injected: gateforge-ssrf-v2",
+        "\r\nX-Injected: gateforge-ssrf-v2",
+        "%0aX-Injected: gateforge-ssrf-v2",
     ]
     for payload in crlf_payloads:
         result = await client.send(

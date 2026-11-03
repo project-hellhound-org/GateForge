@@ -1,5 +1,5 @@
 """
-CrossForge SSRF Agent — Console Layer
+GateForge SSRF Agent — Console Layer
 =======================================
 Borrowed and extended from LDAPi Detection Agent v15.0 console design.
 Provides ANSI-colored phase headers, finding cards, summary boxes, and
@@ -149,7 +149,7 @@ def lifecycle_result(stage: int, stats: list[tuple[str, str]], width: int = 70) 
 
 
 def phase_header(number: int, name: str = "", extra: str = "") -> None:
-    """Print a bordered phase banner — CrossForge style."""
+    """Print a bordered phase banner — GateForge style."""
     W = 76
     col, icon, default_name = _PHASE_META.get(number, (C.BCYAN, "▶", name or "PHASE"))
     display_name = (name or default_name).upper()

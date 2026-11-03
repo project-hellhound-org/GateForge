@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 1: Multi-Dimensional Baseline Establishment
+GateForge SSRF v2.0 - Phase 1: Multi-Dimensional Baseline Establishment
 =========================================================================
 v5 additions:
   [v5-NEW] Infrastructure-noise detection (borrowed from Invicti's confidence-

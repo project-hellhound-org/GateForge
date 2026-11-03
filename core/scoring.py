@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 8: Confidence Scoring & Severity Tiering
+GateForge SSRF v2.0 - Phase 8: Confidence Scoring & Severity Tiering
 =======================================================================
 v5 additions:
   [v5-NEW] Known-exploits escalation — when Phase 6 port_state_map reveals

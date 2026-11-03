@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 0: Surface Mapping & Candidate Pre-Scoring
+GateForge SSRF v2.0 - Phase 0: Surface Mapping & Candidate Pre-Scoring
 ========================================================================
 v5 fixes:
   [P0-FIX] Word-boundary anchors on ALL HIGH_VALUE_ENDPOINT_PATTERNS

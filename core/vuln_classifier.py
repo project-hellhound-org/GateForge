@@ -1,5 +1,5 @@
 """
-CrossForge SSRF Agent — SSRF Vulnerability Type Classifier
+GateForge SSRF Agent — SSRF Vulnerability Type Classifier
 ===========================================================
 WHAT THIS MODULE DOES
 ----------------------

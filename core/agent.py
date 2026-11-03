@@ -1,5 +1,5 @@
 """
-CrossForge SSRF Agent — Core Orchestrator
+GateForge SSRF Agent — Core Orchestrator
 ==========================================
 10-phase pipeline with per-phase clear console output.
 Fixes all issues seen in the Juice Shop run:
@@ -49,7 +49,7 @@ from core import scoring, feedback, reporter
 from core.auth_manager   import AuthManager
 from core.known_exploits import get_registry
 
-logger = logging.getLogger("crossforge.agent")
+logger = logging.getLogger("gateforge.agent")
 
 _DEFAULT_CONFIG = Path(__file__).parent / "config.yaml"
 
@@ -66,7 +66,7 @@ _LOGIN_REDIRECT_RE = re.compile(
 )
 
 
-class CrossForgeAgent:
+class GateForgeAgent:
 
     def __init__(self, config_path: "str | Path" = _DEFAULT_CONFIG):
         with open(config_path) as f:
@@ -130,7 +130,7 @@ class CrossForgeAgent:
         # ════════════════════════════════════════════════════════════════
         # RECON — NATIVE CRAWL (only when no --input spider file was given)
         # ════════════════════════════════════════════════════════════════
-        # WHY: CrossForge previously *required* an externally-produced
+        # WHY: GateForge previously *required* an externally-produced
         # Spider JSON file. If the operator only has a target URL, there
         # was no path to a scan at all. When candidates_path is absent,
         # we crawl the target ourselves and feed the result through the
@@ -507,8 +507,8 @@ class CrossForgeAgent:
         elapsed = time.monotonic() - t_start
         report.status = "complete"
 
-        json_path  = self._output_dir / "crossforge_report.json"
-        sarif_path = self._output_dir / "crossforge_report.sarif"
+        json_path  = self._output_dir / "gateforge_report.json"
+        sarif_path = self._output_dir / "gateforge_report.sarif"
         reporter.write_json_report(report, json_path)
         reporter.write_sarif_report(report, sarif_path)
 

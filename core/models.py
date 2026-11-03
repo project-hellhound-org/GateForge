@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Core Data Models
+GateForge SSRF v2.0 - Core Data Models
 ========================================
 All shared dataclasses used across the 10-phase pipeline.
 v5 additions:
@@ -42,7 +42,7 @@ class ContextClass(str, Enum):
 class VulnType(str, Enum):
     """
     SSRF vulnerability surface taxonomy — 25 categories mapped directly to
-    the SSRF attack surface reference compiled for CrossForge Phase 1.
+    the SSRF attack surface reference compiled for GateForge Phase 1.
     Assigned by core/vuln_classifier.py after prescore; consumed by
     context_classifier.py (overrides generic ContextClass where more specific),
     reporter.py (included in JSON/SARIF output), and eventually the exploit

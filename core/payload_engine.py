@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Payload Mutation Library
+GateForge SSRF v2.0 - Payload Mutation Library
 =================================================
 v5 additions:
   [v5-NEW] CRLF injection payloads (newline_injection already existed,
@@ -153,7 +153,7 @@ def build_scheme_confusion_payloads(host: str, port: int = 80) -> list[str]:
 # [v5-NEW] CRLF injection payload builder
 # ---------------------------------------------------------------------------
 
-def build_crlf_payloads(inject_header: str = "X-Injected", inject_value: str = "hellhound-ssrf-v5") -> list[str]:
+def build_crlf_payloads(inject_header: str = "X-Injected", inject_value: str = "gateforge-ssrf-v2") -> list[str]:
     """
     Returns CRLF injection variants for testing header injection sinks.
     These are used by context_classifier CRLF_INJECTION candidates.

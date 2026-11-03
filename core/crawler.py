@@ -1,13 +1,13 @@
 """
-CrossForge SSRF Agent — Native Adaptive Crawler (Recon, pre-Phase-0)
+GateForge SSRF Agent — Native Adaptive Crawler (Recon, pre-Phase-0)
 =======================================================================
 WHY THIS MODULE EXISTS
 ------------------------
-Every previous version of CrossForge hard-required a pre-built Spider JSON
+Every previous version of GateForge hard-required a pre-built Spider JSON
 file as input (see main.py: `if not args.input: err("No input file...")`).
 That's an external dependency the operator has to satisfy with a *different*
-tool before CrossForge can even start. This module removes that dependency:
-when no --input is supplied, CrossForge does its own recon.
+tool before GateForge can even start. This module removes that dependency:
+when no --input is supplied, GateForge does its own recon.
 
 THIS IS NOT A SHORTCUT AROUND THE EXISTING TRIAGE LOGIC
 ----------------------------------------------------------
@@ -26,7 +26,7 @@ codepath, two possible sources.
 DESIGN PRINCIPLES
 -------------------
   1. READ-ONLY RECON. GET requests only. Forms are PARSED for structure
-     (action, method, field names) but never SUBMITTED — CrossForge never
+     (action, method, field names) but never SUBMITTED — GateForge never
      guesses at login credentials or triggers state changes during crawl.
   2. SAME-ORIGIN SCOPE GUARD. Stays on the target's host by default.
      --crawl-scope can add explicit extra hosts (e.g. an API subdomain);
@@ -74,7 +74,7 @@ engagement mode — not something this module does by default.
 LIMITATIONS (documented, not hidden)
 --------------------------------------
   - Headless rendering is opt-in-by-availability: if `playwright` isn't
-    installed (`pip install crossforge[render]` +
+    installed (`pip install gateforge[render]` +
     `playwright install chromium`), the crawler logs one clear line and
     falls back to the static pass only — it does not error out.
   - No auth-flow traversal. If reaching the interesting surface requires
@@ -127,10 +127,10 @@ class CrawlConfig:
     # 500KB-3MB+ per bundle); see _analyze_js_url's truncate-not-drop fix.
     # This cap now bounds the regex pass, not "whether analysis happens at all".
     respect_robots_as_seed: bool = True
-    user_agent: str = "CrossForge/1.0 (+authorised-security-assessment)"
+    user_agent: str = "GateForge/1.0 (+authorised-security-assessment)"
 
     # ---- Headless rendering pass (optional, requires `pip install
-    # crossforge[render]` then `playwright install chromium`) ----
+    # gateforge[render]` then `playwright install chromium`) ----
     # Purely observational: loads each seed page in a real headless
     # Chromium, watches the network traffic and final DOM the page
     # produces *on its own*, and records what it sees. It does NOT fill
@@ -597,7 +597,7 @@ class NativeCrawler:
         endpoints = self._finalize_endpoints()
 
         meta = {
-            "tool": "CrossForge Native Crawler v1.0",
+            "tool": "GateForge Native Crawler v1.0",
             "target": str(base),
             "crawl_stats": {
                 "pages_fetched":        budget.pages_fetched,
@@ -701,7 +701,7 @@ class NativeCrawler:
         except ImportError:
             stats["skip_reason"] = (
                 "playwright not installed — "
-                "pip install 'crossforge[render]' && playwright install chromium"
+                "pip install 'gateforge[render]' && playwright install chromium"
             )
             return stats
 
@@ -1303,7 +1303,7 @@ async def run_crawl(
     """
     section("RECON — NATIVE CRAWL (no spider file supplied)")
     info(f"Target: {color(target_url, C.BCYAN)}")
-    dim("No --input spider file given — CrossForge is crawling the target itself.")
+    dim("No --input spider file given — GateForge is crawling the target itself.")
 
     crawler = NativeCrawler(crawl_cfg, rate_limiter=rate_limiter, proxy=proxy, extra_headers=extra_headers)
     try:
@@ -1360,7 +1360,7 @@ async def run_crawl(
             "Crawler found 0 endpoints. If the target is a JavaScript-rendered "
             "SPA with no server-rendered links, static crawling under-reports — "
             "see LIMITATIONS in core/crawler.py. Try installing playwright for "
-            "the headless render pass (pip install 'crossforge[render]' && "
+            "the headless render pass (pip install 'gateforge[render]' && "
             "playwright install chromium), or scope --crawl-scope wider."
         )
     tprint()

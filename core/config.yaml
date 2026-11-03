@@ -1,5 +1,5 @@
 # ============================================================
-# HELLHOUND SSRF v5.0 — Agent Configuration
+# GateForge SSRF v2.0.0 — Agent Configuration
 # ============================================================
 # scan_mode:
 #   detect           → read-only, safe for production targets (DEFAULT)
@@ -34,6 +34,9 @@ rate_limit:
 oob:
   server_url: null       # e.g. "https://oast.pro" or self-hosted Interactsh
   poll_interval: 5.0     # seconds between /poll requests
+  oob_wait: 60           # seconds to continue polling after scan completes
+                         # for stored/second-order SSRF callbacks.
+                         # Set via --oob-wait on CLI. 0 = disable daemon mode.
 
 
 # ---- Authentication --------------------------------------------
@@ -85,6 +88,26 @@ evidence:
   spa_probe_count: 3     # random path probes to detect SPA catch-all before port mapping
 
 
+# ---- Exploitation mode -----------------------------------------
+# Controls the post-detection exploitation workflow.
+#
+# After Phases 0-5 (detection) complete and findings exist, the agent
+# auto-runs low-impact evidence (default mode). Use --mode to override.
+#
+#   default        Low-impact evidence only: cloud metadata reads, read-only
+#                  banner probes, file reads, port state mapping, CRLF injection.
+#
+#   exploit_chain  Full exploitation suite including destructive modules.
+#                  Each destructive action requires per-action YES confirmation.
+#
+#   no             Skip exploitation entirely. Report from detection-only findings.
+#
+# The CLI --mode flag pre-selects the mode (bypasses prompt).
+exploitation:
+  auto_default: true     # auto-run low-impact evidence (no prompt)
+  auto_mode: null        # if set, overrides the prompt with this mode
+
+
 # ---- Phase 7: Second-order chaining ---------------------------
 chaining:
   max_hops: 3            # maximum SSRF chain depth (0 = disable chaining)
@@ -107,7 +130,7 @@ output:
 
 
 # ---- Native crawler (Phase 0 recon — only runs when --input is NOT given) --
-# CrossForge's own BFS crawler: same-origin discovery, form parsing (read-only
+# GateForge's own BFS crawler: same-origin discovery, form parsing (read-only
 # — forms are never submitted), static JS analysis for SPA API calls, and
 # robots.txt/sitemap.xml seeding. Output is fed through the SAME
 # spider_adapter triage/prescore pipeline a supplied spider file gets — see
@@ -128,7 +151,7 @@ crawl:
   respect_robots_as_seed: true # add robots.txt Disallow entries to the frontier (not a fence)
 
   # ---- Headless render escalation (core/crawler.py._run_headless_pass) ----
-  # Requires: pip install "crossforge[render]" && playwright install chromium
+  # Requires: pip install "gateforge[render]" && playwright install chromium
   # Purely observational — watches network traffic + final DOM a real
   # headless Chromium produces. Never fills forms or clicks buttons; see
   # "WHAT THE HEADLESS PASS DELIBERATELY DOES NOT DO" in core/crawler.py.
@@ -155,7 +178,7 @@ crawl:
   # for operator visibility (also the prerequisite for a future real
   # DNS-rebinding detector). Informational only, never expands scope.
   # Full record-type enumeration (CNAME/MX/TXT/NS) needs the optional
-  # `dnspython` dependency (pip install "crossforge[dns]"); without it,
+  # `dnspython` dependency (pip install "gateforge[dns]"); without it,
   # this still resolves A/AAAA via the stdlib.
   dns_intel_enabled: true
 

@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 7: Second-Order & Chained SSRF Detection
+GateForge SSRF v2.0 - Phase 7: Second-Order & Chained SSRF Detection
 =======================================================================
 v5 additions:
   [v5-NEW] Kubernetes API server pivot — when port 443/6443/8443 is

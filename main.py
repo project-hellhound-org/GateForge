@@ -1,18 +1,18 @@
 """
-CrossForge SSRF Detection Agent — CLI Entry Point
+GateForge SSRF Detection Agent — CLI Entry Point
 ===================================================
 Usage:
-  crossforge [OPTIONS] <target_url>
-  crossforge [OPTIONS] --input <spiderfile.json>
-  crossforge [OPTIONS] --input <spiderfile.json> <target_url>
-  crossforge --help
-  crossforge --version
+  gateforge [OPTIONS] <target_url>
+  gateforge [OPTIONS] --input <spiderfile.json>
+  gateforge [OPTIONS] --input <spiderfile.json> <target_url>
+  gateforge --help
+  gateforge --version
 
 Examples:
-  crossforge --input spider.json http://localhost:5000
-  crossforge --input candidates.json --oob https://oast.pro --bearer eyJhb...
-  crossforge --input spider.json --mode detect_exploit --proxy http://127.0.0.1:8080
-  crossforge --input spider.json --rate 15 --timeout 12 --output /tmp/results
+  gateforge --input spider.json http://localhost:5000
+  gateforge --input candidates.json --oob https://oast.pro --bearer eyJhb...
+  gateforge --input spider.json --mode detect_exploit --proxy http://127.0.0.1:8080
+  gateforge --input spider.json --rate 15 --timeout 12 --output /tmp/results
 """
 
 from __future__ import annotations
@@ -36,24 +36,24 @@ from core.console import (
 # ─────────────────────────────────────────────────────────────────────────────
 
 BANNER = r"""
-   ______                 ______
-  / ____/________  _____ / ____/___  _________ ____
- / /   / ___/ __ \/ ___// /_  / __ \/ ___/ __ `/ _ \
-/ /___/ /  / /_/ (__  )/ __/ / /_/ / /  / /_/ /  __/
-\____/_/   \____/____/_/     \____/_/   \__, /\___/
-                                        /____/
+   ______      __       ______
+  / ____/___ _/ /____  / ____/___  _________ ____
+ / / __/ __ `/ __/ _ \/ /_  / __ \/ ___/ __ `/ _ \
+/ /_/ / /_/ / /_/  __/ __/ / /_/ / /  / /_/ /  __/
+\____/\__,_/\__/\___/_/    \____/_/   \__, /\___/
+                                     /____/
 """
 
-VERSION = "1.0.0"
-TAGLINE = "Enterprise SSRF Detection · Exploit · Verify"
+VERSION = "2.0.0"
+TAGLINE = "Request Analysis & Validation Agent for Gateway Exploitation Research"
 
 
 def print_banner(mode: str = "DETECT") -> None:
     mode_col = C.BRED if "EXPLOIT" in mode.upper() else C.BCYAN
     tprint(color(BANNER, C.BRED + C.BOLD))
-    tprint(f"  {color('CrossForge', C.BRED + C.BOLD)} {color('SSRF Agent', C.BWHITE)}  "
-           f"{color('v' + VERSION, C.DIM)}   "
-           f"{color(TAGLINE, C.DIM)}")
+    tprint(f"  {color('GateForge', C.BRED + C.BOLD)} {color('SSRF Agent', C.BWHITE)}  "
+           f"{color('v' + VERSION, C.DIM)}")
+    tprint(f"  {color(TAGLINE, C.DIM)}")
     tprint(f"  Mode: {color(mode.upper(), mode_col, C.BOLD)}\n")
 
 
@@ -62,37 +62,37 @@ def print_banner(mode: str = "DETECT") -> None:
 # ─────────────────────────────────────────────────────────────────────────────
 
 HELP_TEXT = f"""
-{color('CrossForge SSRF Agent v' + VERSION, C.BRED + C.BOLD)}
+{color('GateForge SSRF Agent v' + VERSION, C.BRED + C.BOLD)}
 {color('─' * 70, C.DIM)}
 
 {color('DESCRIPTION', C.BWHITE + C.BOLD)}
-  CrossForge is an enterprise-grade autonomous SSRF detection and verification
+  GateForge is an enterprise-grade autonomous SSRF detection and verification
   agent. It runs a 10-phase pipeline — surface triage, baseline establishment,
   context classification, WAF fingerprinting, differential probing, OOB
   correlation, evidence collection, chain pivoting, confidence scoring, and
   adaptive feedback — against every SSRF-plausible parameter on the target.
 
 {color('USAGE', C.BWHITE + C.BOLD)}
-  crossforge [OPTIONS] <target_url>
-  crossforge --input <spiderfile.json> [target_url] [OPTIONS]
+  gateforge [OPTIONS] <target_url>
+  gateforge --input <spiderfile.json> [target_url] [OPTIONS]
 
 {color('INPUT FORMATS', C.BWHITE + C.BOLD)}
   {color('Spider JSON  (FORMAT B, recommended)', C.BYELLOW)}
-    Output from the Hellhound Spider tool. Auto-detected by the presence
+    Output from the GateForge Spider tool. Auto-detected by the presence
     of "endpoints" + "meta" keys. Provides full surface coverage.
-    Example: crossforge --input spider_localhost_5000.json http://target.com
+    Example: gateforge --input spider_localhost_5000.json http://target.com
 
   {color('Flat candidate array  (FORMAT A)', C.BYELLOW)}
     A JSON array of explicit candidate objects. Each entry requires:
     url, method, parameter, location (query|body_json|body_form|header|cookie|path).
-    Example: crossforge --input webhooks.json
+    Example: gateforge --input webhooks.json
 
   {color('No --input — Native Crawl  (FORMAT C)', C.BYELLOW)}
-    No spider file? Give CrossForge just a target URL and it crawls the
+    No spider file? Give GateForge just a target URL and it crawls the
     site itself (BFS, form parsing, static JS analysis for SPA API
     calls) then feeds the discovery through the SAME triage/filter
     pipeline a supplied spider file gets. See --crawl-* flags below.
-    Example: crossforge http://target.com
+    Example: gateforge http://target.com
 
 {color('SCAN MODES', C.BWHITE + C.BOLD)}
   {color('detect          (DEFAULT)', C.BGREEN)}
@@ -162,31 +162,31 @@ HELP_TEXT = f"""
 
 {color('EXAMPLES', C.BWHITE + C.BOLD)}
   # Basic detect scan from spider file
-  crossforge --input spider.json http://target.com
+  gateforge --input spider.json http://target.com
 
-  # No spider file — CrossForge crawls the target itself
-  crossforge http://target.com --oob https://oast.pro
+  # No spider file — GateForge crawls the target itself
+  gateforge http://target.com --oob https://oast.pro
 
   # Native crawl scoped to an extra API subdomain, deeper BFS
-  crossforge http://target.com --crawl-scope api.target.com --crawl-depth 8
+  gateforge http://target.com --crawl-scope api.target.com --crawl-depth 8
 
   # Full pentest: OOB + auth + Burp proxy intercept
-  crossforge --input spider.json --oob https://oast.pro \\
+  gateforge --input spider.json --oob https://oast.pro \\
              --bearer eyJhbGciOiJIUzI1NiJ9.xxx \\
              --proxy http://127.0.0.1:8080
 
   # Exploit mode with API key auth
-  crossforge --input spider.json --mode detect_exploit \\
+  gateforge --input spider.json --mode detect_exploit \\
              --api-key sk-abc123 --api-key-header X-Api-Key
 
   # Quiet mode for CI/CD pipeline
-  crossforge --input candidates.json --quiet --output /tmp/crossforge-ci
+  gateforge --input candidates.json --quiet --output /tmp/gateforge-ci
 
   # Verbose mode to see all candidate decisions
-  crossforge --input spider.json --verbose
+  gateforge --input spider.json --verbose
 
 {color('─' * 70, C.DIM)}
-{color('IMPORTANT', C.BYELLOW + C.BOLD)}: CrossForge must only be used against systems you are explicitly
+{color('IMPORTANT', C.BYELLOW + C.BOLD)}: GateForge must only be used against systems you are explicitly
 authorized to test. Unauthorized use may violate computer fraud laws.
 """
 
@@ -201,8 +201,8 @@ def print_help() -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="crossforge",
-        description="CrossForge SSRF Detection Agent",
+        prog="gateforge",
+        description="GateForge SSRF Detection Agent",
         add_help=False,
     )
     p.add_argument("target",         nargs="?",   default=None, help="Target base URL")
@@ -237,7 +237,10 @@ def build_parser() -> argparse.ArgumentParser:
                    help="Disable native crawler's static JS endpoint extraction")
     p.add_argument("--config",                    default=None,  metavar="PATH")
     p.add_argument("--output",       "-o",        default=None,  metavar="DIR")
-    p.add_argument("--verbose",      "-v",        action="store_true", default=False)
+    p.add_argument("--verbose",      "-v",        action="store_true", default=True,
+                   help="Show all candidates including clean/skipped (ON by default)")
+    p.add_argument("--no-verbose",   dest="no_verbose", action="store_true", default=False,
+                   help="Suppress verbose candidate output")
     p.add_argument("--quiet",        "-q",        action="store_true", default=False)
     p.add_argument("--version",                   action="store_true", default=False)
     p.add_argument("--help",         "-h",        action="store_true", default=False)
@@ -394,8 +397,8 @@ def _normalize_target(raw: str) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 async def _run(tmp_config: str, candidates_path: "str | None", target_url: "str | None") -> None:
-    from core.agent import CrossForgeAgent
-    agent = CrossForgeAgent(tmp_config)
+    from core.agent import GateForgeAgent
+    agent = GateForgeAgent(tmp_config)
     await agent.run(candidates_path, target_url)
 
 
@@ -405,7 +408,7 @@ def main(argv: list[str] | None = None) -> None:
 
     # Version
     if args.version:
-        print(f"crossforge {VERSION}")
+        print(f"gateforge {VERSION}")
         return
 
     # Help
@@ -419,12 +422,14 @@ def main(argv: list[str] | None = None) -> None:
         print_banner()
         err("No input file and no target URL specified.")
         tprint(f"  Use {color('--input <spiderfile.json>', C.BCYAN)}, or give a target URL "
-               f"to let CrossForge crawl it itself.")
-        tprint(f"  Run {color('crossforge --help', C.BCYAN)} to see all options.")
+               f"to let GateForge crawl it itself.")
+        tprint(f"  Run {color('gateforge --help', C.BCYAN)} to see all options.")
         sys.exit(1)
 
     # Configure console
-    configure(verbose=args.verbose, quiet=args.quiet)
+    # Verbose is ON by default; --no-verbose or --quiet suppress it
+    effective_verbose = args.verbose and not args.no_verbose and not args.quiet
+    configure(verbose=effective_verbose, quiet=args.quiet)
 
     # Native-crawl mode needs a fully-qualified URL. See _normalize_target()
     # for exactly which typos this repairs (missing "//", missing scheme).

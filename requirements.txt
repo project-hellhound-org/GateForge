@@ -1,6 +1,6 @@
-# CrossForge SSRF Agent v1.0.0 — Dependencies
+# GateForge SSRF Agent v1.0.0 — Dependencies
 # Install: pip install -r requirements.txt
-# System install: pip install -e .  then use: crossforge --help
+# System install: pip install -e .  then use: gateforge --help
 
 httpx[http2]>=0.27.0
 PyYAML>=6.0.1

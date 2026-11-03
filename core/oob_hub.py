@@ -1,5 +1,5 @@
 """
-HELLHOUND SSRF v5.0 - Phase 5: OOB Correlation Hub
+GateForge SSRF v2.0 - Phase 5: OOB Correlation Hub
 =====================================================
 v5 additions:
   [v5-NEW] originating_request capture when OOB server returns raw HTTP

@@ -1,5 +1,5 @@
 """
-CrossForge SSRF Agent — GraphQL Discovery Adapter
+GateForge SSRF Agent — GraphQL Discovery Adapter
 ======================================================
 WHY THIS MODULE EXISTS
 ------------------------
@@ -52,7 +52,7 @@ import httpx
 
 from core.models import Candidate, ParamLocation
 
-logger = logging.getLogger("crossforge.graphql_adapter")
+logger = logging.getLogger("gateforge.graphql_adapter")
 
 _GRAPHQL_PATHS = [
     "/graphql",

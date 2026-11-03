@@ -1,9 +1,9 @@
 """
-CrossForge SSRF Agent — System Installation
+GateForge SSRF Agent — System Installation
 =============================================
 After installing, run the agent as:
 
-  crossforge --input spider.json http://target.com
+  gateforge --input spider.json http://target.com
 
 Install:
   pip install -e .               # development install (editable)
@@ -14,7 +14,7 @@ Or install for the current user only:
   # Make sure ~/.local/bin is in your PATH
 
 Uninstall:
-  pip uninstall crossforge
+  pip uninstall gateforge
 """
 
 from pathlib import Path
@@ -23,8 +23,8 @@ from setuptools import setup, find_packages
 _HERE = Path(__file__).parent
 
 setup(
-    name="crossforge",
-    version="1.1.0",
+    name="gateforge",
+    version="2.0.0",
     description="Enterprise SSRF Detection, Exploitation & Verification Agent",
     # BUG FIX: open("README.md") used the process's CURRENT WORKING
     # DIRECTORY, not setup.py's own location. `pip install .` from any cwd
@@ -34,7 +34,7 @@ setup(
     # of invocation cwd.
     long_description=(_HERE / "README.md").read_text(encoding="utf-8"),
     long_description_content_type="text/markdown",
-    author="CrossForge Project",
+    author="Project Hellhound",
     python_requires=">=3.10",
 
     # Include the core package and payload data files.
@@ -42,7 +42,7 @@ setup(
     # with __init__.py (i.e. "core"). main.py is a standalone top-level
     # module, and without an explicit py_modules entry it was silently NOT
     # included in installed distributions — `pip install .` / `pip install
-    # -e .` would succeed, but the installed `crossforge` console script
+    # -e .` would succeed, but the installed `gateforge` console script
     # (entry_points below) would fail with `ModuleNotFoundError: No module
     # named 'main'`, because console-script shims don't get the project
     # directory auto-added to sys.path the way `python3 main.py` does.
@@ -60,7 +60,7 @@ setup(
     # evidence_engine.py, waf_detector.py, known_exploits.py, feedback.py,
     # agent.py's default-config lookup) does `with open(path) as f:
     # json.load(f)` at IMPORT TIME with no error handling — so a real
-    # `pip install .` would make `crossforge` crash immediately on any
+    # `pip install .` would make `gateforge` crash immediately on any
     # invocation with FileNotFoundError, before even reaching argument
     # parsing. Fixed at the source by physically relocating payloads/ and
     # config.yaml to live inside core/ (core/payloads/, core/config.yaml)
@@ -94,10 +94,10 @@ setup(
         "dev": ["pytest>=8.1.1", "pytest-asyncio>=0.23.6"],
     },
 
-    # This is what makes `crossforge` available as a system command
+    # This is what makes `gateforge` available as a system command
     entry_points={
         "console_scripts": [
-            "crossforge=main:main",
+            "gateforge=main:main",
         ],
     },
 
