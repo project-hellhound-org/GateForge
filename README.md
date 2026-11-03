@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <h1 align="center">GateForge</h1>
+  <h1 align="center">GATEFORGE</h1>
   <p align="center"><b>Request Analysis & Validation Agent for Gateway Exploitation Research</b></p>
   <p align="center">Autonomous SSRF Detection · Exploitation · Verification</p>
   <p align="center">
