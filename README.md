@@ -4,7 +4,6 @@
 
 <p align="center">
   <h1 align="center">GATEFORGE</h1>
-  <p align="center"><b>Request Analysis & Validation Agent for Gateway Exploitation Research</b></p>
   <p align="center">Autonomous SSRF Detection · Exploitation · Verification</p>
   <p align="center">
     <img src="https://img.shields.io/badge/version-2.0.0-red?style=flat-square" alt="version"/>
